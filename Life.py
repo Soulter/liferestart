@@ -62,12 +62,13 @@ class Life:
         ret chosen talent ids (will be called couple of times)
         '''
         self._errorhandler = handler
-    def setTalentHandler(self, handler: Callable[[List[Talent]], int]) -> None:
+    def setTalentHandler(self, handler: Callable[[List[Talent]], int], game_session) -> None:
         '''
         handler recv randomized talents
         ret chosen talent ids (will be called couple of times)
         '''
         self._talenthandler = handler
+        self._game_session = game_session
     def setPropertyhandler(self, handler: Callable[[int], List[int]]) -> None:
         '''
         handler recv total props
@@ -98,7 +99,7 @@ class Life:
         tdict = dict((t.id, t) for t in talents)
         while len(self.talent.talents) < Life._talent_choose:
             try:
-                t = tdict[self._talenthandler(talents)]
+                t = tdict[self._talenthandler(talents, self._game_session)]
                 for t2 in self.talent.talents:
                     if t2.isExclusiveWith(t):
                         raise HandlerException(f'你选择的天赋和{t2}不能同时拥有')
