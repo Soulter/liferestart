@@ -24,7 +24,7 @@ class liferestartPlugin:
         self.qq_platform = None
 
     def run(self, message: str, role: str, platform: str, message_obj, qq_platform: QQ):
-        if message_obj.type == "GroupMessage" and (message_obj.group_id == 703693608 or message_obj.group_id == 322154837):
+        if message_obj.type == "GroupMessage":
             if message == "重开":
                 self.qq_platform = qq_platform
                 self.group_id = message_obj.group_id
