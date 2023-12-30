@@ -7,8 +7,12 @@ from botpy.message import Message, DirectMessage
 import random
 import traceback
 from .Life import Life,HandlerException
-from model.platform.qq import QQ
-from model.platform.qqchan import QQChan
+try:
+    from model.platform.qq_official import QQOfficial
+    from model.platform.qq_gocq import QQGOCQ
+except:
+    raise Exception("版本不兼容，请更新 AstrBot。")
+
 from cores.qqbot.global_object import AstrMessageEvent
 from typing import Union
 
@@ -17,7 +21,7 @@ class GameSession:
         self.gamestart = False
         self.gamestate = None
         self.life: Life = None
-        self.platform_obj: Union[QQ, QQChan] = platform_obj
+        self.platform_obj: Union[QQGOCQ, QQOfficial] = platform_obj
         self.session_id = session_id
         self.run_life_ret = None
         self.latest_message_obj = None
